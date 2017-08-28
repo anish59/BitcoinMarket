@@ -33,40 +33,54 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imgSend"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/layoutQuestion" />
-
             <LinearLayout
                 android:id="@+id/layoutQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:layout_alignLeft="@+id/imgSend"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/round_bg"
+                android:layout_margin="8dp"
                 android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/imgQuestion"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    android:layout_marginLeft="8dp"
-                    android:src="@drawable/scared" />
-
-                <TextView
-                    android:id="@+id/txtBitCoinInfo"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="?android:attr/actionBarSize"
-                    android:gravity="center"
-                    android:text="What is \n Bit-Coin ?"
-                    android:textSize="16sp"
-                    android:visibility="visible" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_bg">
+
+                    <ImageView
+                        android:id="@+id/imgQuestion"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/scared" />
+
+                    <TextView
+                        android:id="@+id/txtBitCoinInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:attr/actionBarSize"
+                        android:layout_marginLeft="8dp"
+                        android:gravity="start|center_vertical"
+                        android:text="What is Bit-Coin ?"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4">
+
+                    <ImageView
+                        android:src="@drawable/sendButton"
+                        android:id="@+id/imgSend"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp" />
+                </LinearLayout>
 
             </LinearLayout>
+
 
         </RelativeLayout>
 
