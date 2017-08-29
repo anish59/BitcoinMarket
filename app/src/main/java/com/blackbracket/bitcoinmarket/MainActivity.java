@@ -14,6 +14,7 @@ import com.blackbracket.bitcoinmarket.adapter.CurrencyItemAdapter;
 import com.blackbracket.bitcoinmarket.apis.Services;
 import com.blackbracket.bitcoinmarket.model.Countries;
 import com.blackbracket.bitcoinmarket.model.CurrencyResponse;
+import com.blackbracket.bitcoinmarket.model.USD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private CurrencyItemAdapter currencyItemAdapter;
     private Services services = AppApplication.getRetrofit().create(Services.class);
+    private CurrencyItemAdapter.OnCountryItemClickedListener clickedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         initViews();
         init();
+        initListeners();
+    }
+
+    private void initListeners() {
+       /* clickedListener = new CurrencyItemAdapter.OnCountryItemClickedListener() {
+            @Override
+            public void onClick(Countries country, String currencyName) {
+                txtAskValue.setText(getString(R.string.one_bitcoin_in, currencyName));
+                txtAnsValue.setText("Value:\n " + country.get15m() + " " + country.getSymbol());
+                txtAnsBuyRate.setText("Buy rate:\n " + country.getBuy() + " " + country.getSymbol());
+                txtAnsSaleRate.setText("Sale rate:\n " + country.getSell() + " " + country.getSymbol());
+            }
+        };*/
     }
 
     private void init() {
@@ -54,7 +69,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        currencyItemAdapter = new CurrencyItemAdapter(context);
+        currencyItemAdapter = new CurrencyItemAdapter(context, new CurrencyItemAdapter.OnCountryItemClickedListener() {
+            @Override
+            public void onClick(Countries country, String currencyName) {
+                txtAskValue.setText(getString(R.string.one_bitcoin_in, currencyName));
+                txtAnsValue.setText("Value:\n " + country.get15m() + " " + country.getSymbol());
+                txtAnsBuyRate.setText("Buy rate:\n " + country.getBuy() + " " + country.getSymbol());
+                txtAnsSaleRate.setText("Sale rate:\n " + country.getSell() + " " + country.getSymbol());
+            }
+        });
         rvCurrencyItems.setLayoutManager(new LinearLayoutManager(context));
         rvCurrencyItems.setAdapter(currencyItemAdapter);
     }
@@ -96,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     countries.add(response.body().getCHF());
                     countries.add(response.body().getCLP());
                     countries.add(response.body().getCNY());
-                    countries.add(response.body().getCNY());
                     countries.add(response.body().getDKK());
                     countries.add(response.body().getEUR());
                     countries.add(response.body().getGBP());
@@ -117,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                         rvCurrencyItems.setItemViewCacheSize(countries.size());
                         currencyItemAdapter.setItemsAndNotify(countries);
                     }
+                    txtAskValue.setText(getString(R.string.one_bitcoin_in, USD.class.getSimpleName()));
+                    txtAnsValue.setText("Value:\n " + response.body().getUSD().get15m() + " " + response.body().getUSD().getSymbol());
+                    txtAnsBuyRate.setText("Buy rate:\n " + response.body().getUSD().getBuy() + " " + response.body().getUSD().getSymbol());
+                    txtAnsSaleRate.setText("Sale rate:\n " + response.body().getUSD().getSell() + " " + response.body().getUSD().getSymbol());
                 }
             }
 

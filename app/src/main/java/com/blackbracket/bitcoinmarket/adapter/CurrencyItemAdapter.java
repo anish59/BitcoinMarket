@@ -1,6 +1,7 @@
 package com.blackbracket.bitcoinmarket.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +21,13 @@ import java.util.List;
 public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapter.CurrencyHolder> {
     private Context context;
     private int counter = 0;
+    private OnCountryItemClickedListener listener;
     private List<Countries> countries = new ArrayList<>();
+    private int rowIndex = -1;
 
-    public CurrencyItemAdapter(Context context) {
+    public CurrencyItemAdapter(Context context, OnCountryItemClickedListener listener) {
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
     }
 
     @Override
-    public void onBindViewHolder(CurrencyHolder holder, int position) {
+    public void onBindViewHolder(final CurrencyHolder holder, final int position) {
         holder.txtSymbol.setText(countries.get(position).getClass().getSimpleName());
         switch (counter) {
             case 0:
@@ -48,6 +52,21 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
                 holder.viewSideLine.setBackgroundColor(context.getResources().getColor(R.color.colorLime));
                 counter = 0;
                 break;
+        }
+
+        holder.viewSideLine.getRootView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                System.out.println(countries.get(position) + " :" + countries.get(position).getClass().getSimpleName());
+                listener.onClick(countries.get(position), countries.get(position).getClass().getSimpleName());
+                rowIndex = position;
+                notifyDataSetChanged();
+            }
+        });
+        if (rowIndex == position) {
+            holder.viewSideLine.getRootView().setBackgroundColor(context.getResources().getColor(R.color.colorOutGoing));
+        } else {
+            holder.viewSideLine.getRootView().setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
@@ -71,5 +90,9 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
         this.countries = new ArrayList<>();
         this.countries = countries;
         notifyDataSetChanged();
+    }
+
+    public interface OnCountryItemClickedListener {
+        void onClick(Countries country, String currencyName);
     }
 }

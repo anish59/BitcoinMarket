@@ -8,4 +8,5 @@
     <string name="ans_buy_rate">Buy rate :\n4370.80 $</string>
     <string name="ans_sell_rate">Sale rate :\n4370.80 $</string>
     <string name="usd">USD</string>
+    <string name="one_bitcoin_in">1 Ƀ in %s</string>
 </resources>
