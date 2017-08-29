@@ -1,37 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.blackbracket.bitcoinmarket.MainActivity">
+
 
     <LinearLayout
         android:id="@+id/layoutCountries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:background="#757575"
+        android:background="@color/colorGrey"
         android:orientation="vertical">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvCurrencyItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_4dp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="4dp"
         android:layout_height="match_parent"
-        android:background="#212121" />
+        android:background="#000000" />
 
     <LinearLayout
         android:id="@+id/layoutInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#E0E0E0"
+        android:background="@color/colorLightGrey"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtAskValue"
+                        style="@style/txtOutgoing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_16dp"
+                        android:text="@string/one_bitcoin" />
+
+                    <TextView
+                        android:id="@+id/txtAnsValue"
+                        style="@style/txtIncoming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtAskValue"
+                        android:text="@string/_4370_80" />
+
+                    <TextView
+                        android:id="@+id/txtAskBuyRate"
+                        style="@style/txtOutgoing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtAnsValue"
+                        android:text="@string/buy_rate" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutBuy"
+                        style="@style/txtIncoming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/txtAnsValue"
+                        android:layout_alignStart="@+id/txtAnsValue"
+                        android:layout_below="@+id/txtAskBuyRate"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtAnsBuyRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ans_buy_rate"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/dimen_16sp" />
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="@dimen/dimen_8dp"
+                            android:src="@drawable/piggy_bank" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/txtIncoming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/txtAnsValue"
+                        android:layout_alignStart="@+id/txtAnsValue"
+                        android:layout_below="@+id/layoutBuy"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtAnsSaleRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ans_sell_rate"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/dimen_16sp" />
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="@dimen/dimen_8dp"
+                            android:src="@drawable/sell_cash" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </ScrollView>
 
             <LinearLayout
                 android:id="@+id/layoutQuestion"
@@ -44,24 +136,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_bg">
 
                     <ImageView
                         android:id="@+id/imgQuestion"
-                        android:layout_width="45dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="start"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="8dp"
                         android:src="@drawable/scared" />
 
                     <TextView
                         android:id="@+id/txtBitCoinInfo"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="?android:attr/actionBarSize"
                         android:layout_marginLeft="8dp"
                         android:gravity="start|center_vertical"
-                        android:text="What is Bit-Coin ?"
+                        android:text="@string/what_is_bit_coin"
                         android:textSize="16sp"
                         android:visibility="visible" />
                 </LinearLayout>
@@ -70,13 +163,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4">
+                    android:layout_weight="4"
+                    android:padding="2dp">
 
-                    <ImageView
-                        android:src="@drawable/sendButton"
-                        android:id="@+id/imgSend"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp" />
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fabSend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp"
+                        android:src="@drawable/send"
+                        app:fabSize="mini" />
                 </LinearLayout>
 
             </LinearLayout>
