@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class PLN extends Countries {
+
 //
 //    @SerializedName("15m")
 //    @Expose

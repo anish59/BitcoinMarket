@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CurrencyResponse {
 
+
     @SerializedName("USD")
     @Expose
     private USD uSD;

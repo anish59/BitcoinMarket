@@ -23,7 +23,7 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
     private int counter = 0;
     private OnCountryItemClickedListener listener;
     private List<Countries> countries = new ArrayList<>();
-    private int rowIndex = -1;
+    private int rowIndex = 0;
 
     public CurrencyItemAdapter(Context context, OnCountryItemClickedListener listener) {
         this.context = context;
@@ -58,7 +58,7 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
             @Override
             public void onClick(View view) {
 //                System.out.println(countries.get(position) + " :" + countries.get(position).getClass().getSimpleName());
-                listener.onClick(countries.get(position), countries.get(position).getClass().getSimpleName());
+                listener.onClick(countries.get(position), countries.get(position).getClass().getSimpleName(),position);
                 rowIndex = position;
                 notifyDataSetChanged();
             }
@@ -93,6 +93,6 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
     }
 
     public interface OnCountryItemClickedListener {
-        void onClick(Countries country, String currencyName);
+        void onClick(Countries country, String currencyName,int Position);
     }
 }

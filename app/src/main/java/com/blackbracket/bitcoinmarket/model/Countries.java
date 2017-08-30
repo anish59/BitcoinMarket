@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Countries {
-
+    private String fullForm;
     @SerializedName("15m")
     @Expose
     private Double _15m;
@@ -65,4 +65,11 @@ public class Countries {
         this.symbol = symbol;
     }
 
+    public String getFullForm() {
+        return fullForm;
+    }
+
+    public void setFullForm(String fullForm) {
+        this.fullForm = fullForm;
+    }
 }

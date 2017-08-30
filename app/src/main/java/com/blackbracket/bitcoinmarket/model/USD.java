@@ -5,7 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class USD extends Countries {
-//
+
+
+    //
 //    @SerializedName("15m")
 //    @Expose
 //    private Double _15m;

@@ -3,6 +3,7 @@
     package="com.blackbracket.bitcoinmarket">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name=".AppApplication"
         android:allowBackup="true"
@@ -18,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BitCoinInfoActivity"></activity>
+        <activity android:name=".BitCoinInfoActivity"/>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class SEK extends Countries{
 
+
 //    @SerializedName("15m")
 //    @Expose
 //    private Double _15m;

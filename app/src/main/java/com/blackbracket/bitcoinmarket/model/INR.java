@@ -5,4 +5,6 @@ package com.blackbracket.bitcoinmarket.model;
  */
 
 public class INR extends Countries {
+
+
 }

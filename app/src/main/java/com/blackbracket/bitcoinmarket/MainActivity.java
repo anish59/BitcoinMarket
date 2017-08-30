@@ -3,15 +3,19 @@ package com.blackbracket.bitcoinmarket;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blackbracket.bitcoinmarket.adapter.CurrencyItemAdapter;
 import com.blackbracket.bitcoinmarket.apis.Services;
+import com.blackbracket.bitcoinmarket.helper.AppConstants;
+import com.blackbracket.bitcoinmarket.helper.FunctionHelper;
 import com.blackbracket.bitcoinmarket.model.Countries;
 import com.blackbracket.bitcoinmarket.model.CurrencyResponse;
 import com.blackbracket.bitcoinmarket.model.USD;
@@ -42,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private CurrencyItemAdapter currencyItemAdapter;
     private Services services = AppApplication.getRetrofit().create(Services.class);
     private CurrencyItemAdapter.OnCountryItemClickedListener clickedListener;
+    private android.support.v7.widget.Toolbar toolbar;
+    private LinearLayout layoutContainer;
+    private android.support.v4.widget.SwipeRefreshLayout layoutSwipe;
+    private int selectedPosition = 0;
+    private String selectedCurrency = USD.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,29 +62,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListeners() {
-       /* clickedListener = new CurrencyItemAdapter.OnCountryItemClickedListener() {
+        layoutSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(Countries country, String currencyName) {
-                txtAskValue.setText(getString(R.string.one_bitcoin_in, currencyName));
-                txtAnsValue.setText("Value:\n " + country.get15m() + " " + country.getSymbol());
-                txtAnsBuyRate.setText("Buy rate:\n " + country.getBuy() + " " + country.getSymbol());
-                txtAnsSaleRate.setText("Sale rate:\n " + country.getSell() + " " + country.getSymbol());
+            public void onRefresh() {
+                if (FunctionHelper.isConnectedToInternet(context)) {
+                    callService();
+                } else {
+                    FunctionHelper.showAlertDialogWithOneOpt(context, "Please connect to internet", new FunctionHelper.DialogOptionsSelectedListener() {
+                        @Override
+                        public void onSelect(boolean isYes) {
+                            onResume();
+                        }
+                    }, "Try Again!");
+                }
             }
-        };*/
+        });
     }
 
     private void init() {
         initAdapter();
+
     }
 
     private void initAdapter() {
         currencyItemAdapter = new CurrencyItemAdapter(context, new CurrencyItemAdapter.OnCountryItemClickedListener() {
             @Override
-            public void onClick(Countries country, String currencyName) {
+            public void onClick(Countries country, String currencyName, int position) {
                 txtAskValue.setText(getString(R.string.one_bitcoin_in, currencyName));
                 txtAnsValue.setText("Value:\n " + country.get15m() + " " + country.getSymbol());
                 txtAnsBuyRate.setText("Buy rate:\n " + country.getBuy() + " " + country.getSymbol());
                 txtAnsSaleRate.setText("Sale rate:\n " + country.getSell() + " " + country.getSymbol());
+                toolbar.setTitle(country.getFullForm());
+                selectedPosition = position;
+                selectedCurrency = currencyName;
             }
         });
         rvCurrencyItems.setLayoutManager(new LinearLayoutManager(context));
@@ -84,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         setContentView(R.layout.activity_main);
+        layoutSwipe = (SwipeRefreshLayout) findViewById(R.id.layoutSwipe);
+        layoutContainer = (LinearLayout) findViewById(R.id.layoutContainer);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         layoutInfo = (LinearLayout) findViewById(R.id.layoutInfo);
         layoutQuestion = (LinearLayout) findViewById(R.id.layoutQuestion);
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
@@ -97,58 +119,138 @@ public class MainActivity extends AppCompatActivity {
         txtAskValue = (TextView) findViewById(R.id.txtAskValue);
         layoutCountries = (LinearLayout) findViewById(R.id.layoutCountries);
         rvCurrencyItems = (RecyclerView) findViewById(R.id.rvCurrencyItems);
+        FunctionHelper.initToolbar(MainActivity.this, toolbar, "United States Dollars ", "");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        callService();
+        if (FunctionHelper.isConnectedToInternet(context)) {
+            callService();
+        } else {
+            FunctionHelper.showAlertDialogWithOneOpt(context, "Please connect to internet", new FunctionHelper.DialogOptionsSelectedListener() {
+                @Override
+                public void onSelect(boolean isYes) {
+                    onResume();
+                }
+            }, "Try Again!");
+        }
     }
 
     private void callService() {
+
         final List<Countries> countries = new ArrayList<>();
+        layoutSwipe.setRefreshing(true);
         services.getAllBitcoinInfo().enqueue(new Callback<CurrencyResponse>() {
             @Override
             public void onResponse(Call<CurrencyResponse> call, Response<CurrencyResponse> response) {
+                layoutSwipe.setRefreshing(false);
+                Countries usd, aud, brl, cad, chf, clp, cny, dkk, eur, gbp, hkd, inr, isk, jpy, krw, nzd, pln, rub, sek, sgd, thb, twd;
+
                 if (response.isSuccessful() && response.body() != null) {
-                    countries.add(response.body().getUSD());
-                    countries.add(response.body().getiNR());
-                    countries.add(response.body().getAUD());
-                    countries.add(response.body().getBRL());
-                    countries.add(response.body().getCAD());
-                    countries.add(response.body().getCHF());
-                    countries.add(response.body().getCLP());
-                    countries.add(response.body().getCNY());
-                    countries.add(response.body().getDKK());
-                    countries.add(response.body().getEUR());
-                    countries.add(response.body().getGBP());
-                    countries.add(response.body().getHKD());
-                    countries.add(response.body().getISK());
-                    countries.add(response.body().getJPY());
-                    countries.add(response.body().getKRW());
-                    countries.add(response.body().getNZD());
-                    countries.add(response.body().getPLN());
-                    countries.add(response.body().getPLN());
-                    countries.add(response.body().getRUB());
-                    countries.add(response.body().getSEK());
-                    countries.add(response.body().getSGD());
-                    countries.add(response.body().getTHB());
-                    countries.add(response.body().getTWD());
+                    usd = response.body().getUSD();
+                    usd.setFullForm(AppConstants.USD);
+
+                    inr = response.body().getiNR();
+                    inr.setFullForm(AppConstants.INR);
+
+                    aud = response.body().getAUD();
+                    aud.setFullForm(AppConstants.AUD);
+
+                    brl = response.body().getBRL();
+                    brl.setFullForm(AppConstants.BRL);
+
+                    cad = response.body().getCAD();
+                    cad.setFullForm(AppConstants.CAD);
+
+                    chf = response.body().getCHF();
+                    chf.setFullForm(AppConstants.CHF);
+
+                    clp = response.body().getCLP();
+                    clp.setFullForm(AppConstants.CLP);
+
+                    cny = response.body().getCNY();
+                    cny.setFullForm(AppConstants.CNY);
+
+                    dkk = response.body().getDKK();
+                    dkk.setFullForm(AppConstants.DKK);
+
+                    eur = response.body().getEUR();
+                    eur.setFullForm(AppConstants.EUR);
+
+                    gbp = response.body().getGBP();
+                    gbp.setFullForm(AppConstants.GBP);
+
+                    hkd = response.body().getHKD();
+                    hkd.setFullForm(AppConstants.HKD);
+
+                    isk = response.body().getISK();
+                    isk.setFullForm(AppConstants.ISK);
+
+                    jpy = response.body().getJPY();
+                    jpy.setFullForm(AppConstants.JPY);
+
+                    krw = response.body().getKRW();
+                    krw.setFullForm(AppConstants.KRW);
+
+                    nzd = response.body().getNZD();
+                    nzd.setFullForm(AppConstants.NZD);
+
+                    pln = response.body().getPLN();
+                    pln.setFullForm(AppConstants.PLN);
+
+                    rub = response.body().getRUB();
+                    rub.setFullForm(AppConstants.RUB);
+
+                    sek = response.body().getSEK();
+                    sek.setFullForm(AppConstants.SEK);
+
+                    sgd = response.body().getSGD();
+                    sgd.setFullForm(AppConstants.SGD);
+
+                    thb = response.body().getTHB();
+                    thb.setFullForm(AppConstants.THB);
+
+                    twd = response.body().getTWD();
+                    twd.setFullForm(AppConstants.TWD);
+
+                    countries.add(usd);
+                    countries.add(inr);
+                    countries.add(aud);
+                    countries.add(brl);
+                    countries.add(cad);
+                    countries.add(chf);
+                    countries.add(clp);
+                    countries.add(cny);
+                    countries.add(dkk);
+                    countries.add(eur);
+                    countries.add(gbp);
+                    countries.add(hkd);
+                    countries.add(isk);
+                    countries.add(jpy);
+                    countries.add(krw);
+                    countries.add(nzd);
+                    countries.add(pln);
+                    countries.add(rub);
+                    countries.add(sek);
+                    countries.add(sgd);
+                    countries.add(thb);
+                    countries.add(twd);
 
                     if (!countries.isEmpty()) {
                         rvCurrencyItems.setItemViewCacheSize(countries.size());
                         currencyItemAdapter.setItemsAndNotify(countries);
                     }
-                    txtAskValue.setText(getString(R.string.one_bitcoin_in, USD.class.getSimpleName()));
-                    txtAnsValue.setText("Value:\n " + response.body().getUSD().get15m() + " " + response.body().getUSD().getSymbol());
-                    txtAnsBuyRate.setText("Buy rate:\n " + response.body().getUSD().getBuy() + " " + response.body().getUSD().getSymbol());
-                    txtAnsSaleRate.setText("Sale rate:\n " + response.body().getUSD().getSell() + " " + response.body().getUSD().getSymbol());
+                    txtAskValue.setText(getString(R.string.one_bitcoin_in, selectedCurrency));
+                    txtAnsValue.setText("Value:\n " + countries.get(selectedPosition).get15m() + " " + countries.get(selectedPosition).getSymbol());
+                    txtAnsBuyRate.setText("Buy rate:\n " + countries.get(selectedPosition).getBuy() + " " + countries.get(selectedPosition).getSymbol());
+                    txtAnsSaleRate.setText("Sale rate:\n " + countries.get(selectedPosition).getSell() + " " + countries.get(selectedPosition).getSymbol());
                 }
             }
 
             @Override
             public void onFailure(Call<CurrencyResponse> call, Throwable t) {
-
+                layoutSwipe.setRefreshing(false);
             }
         });
     }
