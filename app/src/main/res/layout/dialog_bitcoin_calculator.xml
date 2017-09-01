@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGrey"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"
+        android:background="@drawable/calculate_money">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_22dp"
+                android:layout_height="@dimen/dimen_22dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_close" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_8dp"
+        android:background="@color/colorPrimary" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dimen_16dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtAmount"
+                android:layout_width="250dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@drawable/square_bg"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:text="12345678"
+                android:textSize="@dimen/dimen_22sp" />
+            <!--todo need to apply input filter and adjustable edit text-->
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinnerSearchable"
+                android:layout_width="250dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_16dp">
+
+            </com.toptoche.searchablespinnerlibrary.SearchableSpinner>
+
+            <Button
+                android:id="@+id/btnConvert"
+                android:layout_width="250dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@drawable/square_bg_btn"
+                android:gravity="center"
+                android:text="Convert"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/dimen_22sp" />
+
+            <TextView
+                android:id="@+id/txtResult"
+                android:layout_width="250dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_32dp"
+                android:background="@drawable/square_bg"
+                android:gravity="center"
+                android:text="Value"
+                android:textSize="@dimen/dimen_22sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

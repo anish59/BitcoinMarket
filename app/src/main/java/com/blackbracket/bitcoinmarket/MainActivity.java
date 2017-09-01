@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,13 +18,12 @@ import android.widget.Toast;
 
 import com.blackbracket.bitcoinmarket.adapter.CurrencyItemAdapter;
 import com.blackbracket.bitcoinmarket.apis.Services;
+import com.blackbracket.bitcoinmarket.dialogs.BitCoinCalculatorDialog;
 import com.blackbracket.bitcoinmarket.helper.AppConstants;
 import com.blackbracket.bitcoinmarket.helper.FunctionHelper;
 import com.blackbracket.bitcoinmarket.model.Countries;
 import com.blackbracket.bitcoinmarket.model.CurrencyResponse;
 import com.blackbracket.bitcoinmarket.model.USD;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -270,5 +271,23 @@ public class MainActivity extends AppCompatActivity {
                 layoutSwipe.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.actionCalculateBitCoin:
+                new BitCoinCalculatorDialog(context);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
