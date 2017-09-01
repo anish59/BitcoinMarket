@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blackbracket.bitcoinmarket.adapter.CurrencyItemAdapter;
 import com.blackbracket.bitcoinmarket.apis.Services;
@@ -19,6 +21,8 @@ import com.blackbracket.bitcoinmarket.helper.FunctionHelper;
 import com.blackbracket.bitcoinmarket.model.Countries;
 import com.blackbracket.bitcoinmarket.model.CurrencyResponse;
 import com.blackbracket.bitcoinmarket.model.USD;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +85,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         initAdapter();
+        services.calculateCurrency("USD", 5000).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(context, "Value:-> " + response.body(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(context, "Failed ", Toast.LENGTH_SHORT).show();
+                Log.e("err", t.getMessage());
+            }
+        });
     }
 
     private void initAdapter() {

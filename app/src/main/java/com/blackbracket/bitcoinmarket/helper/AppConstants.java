@@ -7,6 +7,8 @@ package com.blackbracket.bitcoinmarket.helper;
 public class AppConstants {
     public static final String BASE_URL = "https://blockchain.info/";
     public static final String TICKER = "ticker";
+    public static final String TO_BTC = "tobtc";
+
 
     /*Country-Currency full forms*/
     public static final String USD = "United States Dollars ";
