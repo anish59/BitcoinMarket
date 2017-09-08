@@ -10,11 +10,18 @@
     <string name="usd">USD</string>
     <string name="one_bitcoin_in">1 Ƀ in %s</string>
     <string name="calculator">calculator</string>
+    <string name="bitcoin_market">BitCoin Market</string>
+
+    <!-- Fonts -->
     <string name="PacificoRegular">PacificoRegular.ttf</string>
     <string name="ConcertOneRegular">ConcertOneRegular.ttf</string>
     <string name="DancingScriptBold">DancingScriptBold.ttf</string>
     <string name="BerkshireSwashRegular">BerkshireSwashRegular.ttf</string>
     <string name="ArchitectsDaughterRegular">ArchitectsDaughterRegular.ttf</string>
-    <string name="FrijoleRegular.ttf">FrijoleRegular.ttf</string>
-    <string name="bitcoin_market">BitCoin Market</string>
+    <string name="FrijoleRegular">FrijoleRegular.ttf</string>
+    <string name="YanoneKaffeesatzRegular">YanoneKaffeesatzRegular.ttf</string>
+    <string name="DancingScriptRegular">DancingScriptRegular.ttf</string>
+    <string name="IndieFlower">IndieFlower.ttf</string>
+    <string name="BoogalooRegular">BoogalooRegular.ttf</string>
+    <string name="BlackOpsOneRegular">BlackOpsOneRegular.ttf</string>
 </resources>

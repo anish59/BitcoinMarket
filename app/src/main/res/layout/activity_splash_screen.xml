@@ -28,6 +28,6 @@
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/dimen_32sp"
         app:charIncrease="1"
-        app:font="@string/FrijoleRegular.ttf"
+        app:font="@string/FrijoleRegular"
         app:typerSpeed="100" />
 </RelativeLayout>

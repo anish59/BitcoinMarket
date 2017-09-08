@@ -69,29 +69,32 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <TextView
+                            <com.blackbracket.bitcoinmarket.widgets.CTextView
                                 android:id="@+id/txtAskValue"
                                 style="@style/txtOutgoing"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_16dp"
-                                android:text="@string/one_bitcoin" />
+                                android:text="@string/one_bitcoin"
+                                app:font="@string/ConcertOneRegular" />
 
-                            <TextView
+                            <com.blackbracket.bitcoinmarket.widgets.CTextView
                                 android:id="@+id/txtAnsValue"
                                 style="@style/txtIncoming"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/txtAskValue"
-                                android:text="@string/_4370_80" />
+                                android:text="@string/_4370_80"
+                                app:font="@string/ConcertOneRegular" />
 
-                            <TextView
+                            <com.blackbracket.bitcoinmarket.widgets.CTextView
                                 android:id="@+id/txtAskBuyRate"
                                 style="@style/txtOutgoing"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/txtAnsValue"
-                                android:text="@string/buy_rate" />
+                                android:text="@string/buy_rate"
+                                app:font="@string/ConcertOneRegular" />
 
                             <LinearLayout
                                 android:id="@+id/layoutBuy"
@@ -103,13 +106,14 @@
                                 android:layout_below="@+id/txtAskBuyRate"
                                 android:orientation="horizontal">
 
-                                <TextView
+                                <com.blackbracket.bitcoinmarket.widgets.CTextView
                                     android:id="@+id/txtAnsBuyRate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ans_buy_rate"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="@dimen/dimen_16sp" />
+                                    android:textSize="@dimen/dimen_18sp"
+                                    app:font="@string/ConcertOneRegular" />
 
                                 <ImageView
                                     android:layout_width="45dp"
@@ -127,13 +131,14 @@
                                 android:layout_below="@+id/layoutBuy"
                                 android:orientation="horizontal">
 
-                                <TextView
+                                <com.blackbracket.bitcoinmarket.widgets.CTextView
                                     android:id="@+id/txtAnsSaleRate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ans_sell_rate"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="@dimen/dimen_16sp" />
+                                    android:textSize="@dimen/dimen_18sp"
+                                    app:font="@string/ConcertOneRegular" />
 
                                 <ImageView
                                     android:layout_width="45dp"
@@ -169,7 +174,7 @@
                                 android:layout_marginLeft="8dp"
                                 android:src="@drawable/scared" />
 
-                            <TextView
+                            <com.blackbracket.bitcoinmarket.widgets.CTextView
                                 android:id="@+id/txtBitCoinInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="?android:attr/actionBarSize"
@@ -177,7 +182,8 @@
                                 android:gravity="start|center_vertical"
                                 android:text="@string/what_is_bit_coin"
                                 android:textSize="16sp"
-                                android:visibility="visible" />
+                                android:visibility="visible"
+                                app:font="@string/ConcertOneRegular" />
                         </LinearLayout>
 
 
