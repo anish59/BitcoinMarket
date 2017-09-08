@@ -1,6 +1,8 @@
 package com.blackbracket.bitcoinmarket;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -139,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         layoutCountries = (LinearLayout) findViewById(R.id.layoutCountries);
         rvCurrencyItems = (RecyclerView) findViewById(R.id.rvCurrencyItems);
         FunctionHelper.initToolbar(MainActivity.this, toolbar, "United States Dollars ", "");
+        applyFontForToolbarTitle(context, toolbar);
     }
 
     @Override
@@ -296,5 +300,20 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void applyFontForToolbarTitle(Context context, Toolbar toolbar) {
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View view = toolbar.getChildAt(i);
+            if (view instanceof TextView) {
+                TextView tv = (TextView) view;
+                Typeface titleFont = Typeface.
+                        createFromAsset(context.getAssets(), "ConcertOneRegular.ttf");
+                if (tv.getText().equals(toolbar.getTitle())) {
+                    tv.setTypeface(titleFont);
+                    break;
+                }
+            }
+        }
     }
 }
