@@ -8,6 +8,7 @@ public class AppConstants {
     public static final String BASE_URL = "https://blockchain.info/";
     public static final String TICKER = "ticker";
     public static final String TO_BTC = "tobtc";
+    public static final String BlackBracketBlog = "http://www.blackbrackettechnologies.com/";//todo: need to change with your own blog
 
 
     /*Country-Currency full forms*/
