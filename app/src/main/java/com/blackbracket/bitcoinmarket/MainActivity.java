@@ -98,20 +98,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         initAdapter();
-        services.calculateCurrency("USD", 5000).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
-//                    Toast.makeText(context, "Value:-> " + response.body(), Toast.LENGTH_SHORT).show();
-                }
-            }
+//        services.calculateCurrency("USD", 5000).enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+////                    Toast.makeText(context, "Value:-> " + response.body(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(context, "Failed ", Toast.LENGTH_SHORT).show();
-                Log.e("err", t.getMessage());
-            }
-        });
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//                Toast.makeText(context, "Failed ", Toast.LENGTH_SHORT).show();
+//                Log.e("err", t.getMessage());
+//            }
+//        });
         mInterstitialAd = new InterstitialAd(this);
     }
 

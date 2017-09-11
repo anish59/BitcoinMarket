@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "540141156519",
+    "firebase_url": "https://bitcoinmarket-2ab1d.firebaseio.com",
+    "project_id": "bitcoinmarket-2ab1d",
+    "storage_bucket": "bitcoinmarket-2ab1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540141156519:android:dcee6d4146e920e9",
+        "android_client_info": {
+          "package_name": "com.blackbracket.bitcoinmarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540141156519-mnpolta3gcmcv0pgl95pej045qfcf9gk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blackbracket.bitcoinmarket",
+            "certificate_hash": "605b3b50a0c94d1981206d23bc1176186a6c577b"
+          }
+        },
+        {
+          "client_id": "540141156519-3o10f1v53hg4bt06jq3mvt7ccj3dok1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGl0mx6bQkEr9EDgMl6UBoJDODrYBVbwM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540141156519-3o10f1v53hg4bt06jq3mvt7ccj3dok1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
