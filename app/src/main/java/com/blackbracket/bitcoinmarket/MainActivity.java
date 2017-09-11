@@ -74,10 +74,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        initViews();
-        init();
-        initListeners();
+        if (PrefsUtil.isSplashShown(context)) {
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            initViews();
+            init();
+            initListeners();
+        } else {
+            startActivity(new Intent(MainActivity.this, SplashScreenActivity.class));
+            finish();
+        }
     }
 
     private void initListeners() {
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConstants.   BlackBracketBlog));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConstants.BlackBracketBlog));
                 startActivity(browserIntent);
             }
         });
@@ -305,6 +310,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CurrencyResponse> call, Throwable t) {
                 layoutSwipe.setRefreshing(false);
+                FunctionHelper.showAlertDialogWithOneOpt(context, "Oops!, there seems to be some issue with the server. Please try again later..!", new FunctionHelper.DialogOptionsSelectedListener() {
+                    @Override
+                    public void onSelect(boolean isYes) {
+                        finish();
+                    }
+                }, "Okay");
             }
         });
     }

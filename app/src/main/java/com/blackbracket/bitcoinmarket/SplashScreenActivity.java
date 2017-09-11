@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.blackbracket.bitcoinmarket.helper.PrefsUtil;
 import com.blackbracket.bitcoinmarket.widgets.CAnimTextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                PrefsUtil.setFirstTimeSplash(SplashScreenActivity.this,true);
                 finish();
             }
         }, 2500);
