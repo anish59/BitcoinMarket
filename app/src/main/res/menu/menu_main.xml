@@ -6,6 +6,7 @@
         android:id="@+id/actionCalculateBitCoin"
         android:icon="@drawable/ic_send_btn"
         android:title="@string/calculator"
+        android:visible="false"
         app:showAsAction="always" />
     <!--todo: replace:: android:icon="@drawable/ic_finance"-->
 </menu>

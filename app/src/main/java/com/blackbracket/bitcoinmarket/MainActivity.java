@@ -1,6 +1,5 @@
 package com.blackbracket.bitcoinmarket;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,9 +24,14 @@ import com.blackbracket.bitcoinmarket.dialogs.BitCoinCalculatorDialog;
 import com.blackbracket.bitcoinmarket.dialogs.SwipeIntroDialog;
 import com.blackbracket.bitcoinmarket.helper.AppConstants;
 import com.blackbracket.bitcoinmarket.helper.FunctionHelper;
+import com.blackbracket.bitcoinmarket.helper.PrefsUtil;
 import com.blackbracket.bitcoinmarket.model.Countries;
 import com.blackbracket.bitcoinmarket.model.CurrencyResponse;
 import com.blackbracket.bitcoinmarket.model.USD;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,11 +64,15 @@ public class MainActivity extends AppCompatActivity {
     private android.support.v4.widget.SwipeRefreshLayout layoutSwipe;
     private int selectedPosition = 0;
     private String selectedCurrency = USD.class.getSimpleName();
+    InterstitialAd mInterstitialAd;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         initViews();
         init();
         initListeners();
@@ -104,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("err", t.getMessage());
             }
         });
+        mInterstitialAd = new InterstitialAd(this);
     }
 
     private void initAdapter() {
@@ -149,13 +158,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (FunctionHelper.isConnectedToInternet(context)) {
-            new SwipeIntroDialog(context, new SwipeIntroDialog.OnIntroDismissListener() {
-                @Override
-                public void onDismissed() {
-                    callService();
-                }
-            });
-            //Todo: call callService here if preference for intro is set
+            if (PrefsUtil.isIntroShown(context)) {
+                callService();
+            } else {
+
+                new SwipeIntroDialog(context, new SwipeIntroDialog.OnIntroDismissListener() {
+                    @Override
+                    public void onDismissed() {
+                        PrefsUtil.setIntroStatus(context, true);
+                        callService();
+                    }
+                });
+
+            }
         } else {
             FunctionHelper.showAlertDialogWithOneOpt(context, "Please connect to internet", new FunctionHelper.DialogOptionsSelectedListener() {
                 @Override
@@ -314,6 +329,32 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // set the ad unit ID
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+
+        // Load ads into Interstitial Ads
+        mInterstitialAd.loadAd(adRequest);
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
+    }
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            finish();
         }
     }
 }

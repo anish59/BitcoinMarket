@@ -12,6 +12,12 @@
     <string name="calculator">calculator</string>
     <string name="bitcoin_market">BitCoin Market</string>
 
+
+    <!-- AdMob ad unit IDs -->
+    <!--<string name="banner_home_footer">ca-app-pub-0664573200302260/332653322424</string>-->
+    <string name="interstitial_full_screen">ca-app-pub-3454303483023480/4738105142</string>
+
+
     <!-- Fonts -->
     <string name="PacificoRegular">PacificoRegular.ttf</string>
     <string name="ConcertOneRegular">ConcertOneRegular.ttf</string>
@@ -24,4 +30,5 @@
     <string name="IndieFlower">IndieFlower.ttf</string>
     <string name="BoogalooRegular">BoogalooRegular.ttf</string>
     <string name="BlackOpsOneRegular">BlackOpsOneRegular.ttf</string>
+    <string name="ABeeZeeRegular">ABeeZeeRegular.ttf</string>
 </resources>
