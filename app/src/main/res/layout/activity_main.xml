@@ -81,6 +81,10 @@
                             <com.blackbracket.bitcoinmarket.widgets.CTextView
                                 android:id="@+id/txtAnsValue"
                                 style="@style/txtIncoming"
+                                android:paddingRight="@dimen/dimen_8dp"
+                                android:paddingEnd="@dimen/dimen_8dp"
+                                android:layout_marginRight="@dimen/dimen_2dp"
+                                android:layout_marginEnd="@dimen/dimen_2dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/txtAskValue"
@@ -118,7 +122,10 @@
                                 <ImageView
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
-                                    android:layout_marginLeft="@dimen/dimen_8dp"
+                                    android:layout_marginStart="@dimen/dimen_2dp"
+                                    android:layout_marginLeft="@dimen/dimen_2dp"
+                                    android:layout_marginRight="@dimen/dimen_2dp"
+                                    android:layout_marginEnd="@dimen/dimen_2dp"
                                     android:src="@drawable/piggy_bank" />
                             </LinearLayout>
 
@@ -143,7 +150,10 @@
                                 <ImageView
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
-                                    android:layout_marginLeft="@dimen/dimen_8dp"
+                                    android:layout_marginStart="@dimen/dimen_2dp"
+                                    android:layout_marginLeft="@dimen/dimen_2dp"
+                                    android:layout_marginRight="@dimen/dimen_2dp"
+                                    android:layout_marginEnd="@dimen/dimen_2dp"
                                     android:src="@drawable/sell_cash" />
                             </LinearLayout>
                         </RelativeLayout>
