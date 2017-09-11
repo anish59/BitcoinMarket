@@ -112,11 +112,12 @@
 
                                 <com.blackbracket.bitcoinmarket.widgets.CTextView
                                     android:id="@+id/txtAnsBuyRate"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ans_buy_rate"
                                     android:textColor="@color/colorWhite"
                                     android:textSize="@dimen/dimen_18sp"
+                                    android:maxLines="4"
                                     app:font="@string/ABeeZeeRegular" />
 
                                 <ImageView
@@ -140,11 +141,12 @@
 
                                 <com.blackbracket.bitcoinmarket.widgets.CTextView
                                     android:id="@+id/txtAnsSaleRate"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="100dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/ans_sell_rate"
                                     android:textColor="@color/colorWhite"
                                     android:textSize="@dimen/dimen_18sp"
+                                    android:maxLines="4"
                                     app:font="@string/ABeeZeeRegular" />
 
                                 <ImageView
