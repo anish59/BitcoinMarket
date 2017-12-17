@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.KeyEvent;
 
 /**
  * Created by anish on 30-08-2017.
@@ -49,7 +49,7 @@ public class FunctionHelper {
         alert.show();
     }
 
-    public static void showAlertDialogWithOneOpt(Context mContext, String message, final DialogOptionsSelectedListener dialogOptionsSelectedListener, String yesOption) {
+    public static void showAlertDialogWithOneOpt(final Context mContext, String message, final DialogOptionsSelectedListener dialogOptionsSelectedListener, String yesOption) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage(message)
                 .setCancelable(false)
@@ -63,11 +63,22 @@ public class FunctionHelper {
                 });
         AlertDialog alert = builder.create();
 
+        alert.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialogOptionsSelectedListener.onDialogBackClick();
+                }
+                return true;
+            }
+        });
         alert.show();
     }
 
     public interface DialogOptionsSelectedListener {
         void onSelect(boolean isYes);
+
+        void onDialogBackClick();
     }
 
     public static boolean isConnectedToInternet(Context context) {

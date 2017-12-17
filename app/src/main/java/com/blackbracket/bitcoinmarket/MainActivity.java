@@ -5,20 +5,20 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blackbracket.bitcoinmarket.adapter.CurrencyItemAdapter;
 import com.blackbracket.bitcoinmarket.apis.Services;
@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private String selectedCurrency = USD.class.getSimpleName();
     InterstitialAd mInterstitialAd;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private Handler handler;
+    private Runnable runnable;
 
 
     @Override
@@ -90,12 +92,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 if (FunctionHelper.isConnectedToInternet(context)) {
-                    callService();
+                    initApiCalling();
                 } else {
                     FunctionHelper.showAlertDialogWithOneOpt(context, "Please connect to internet", new FunctionHelper.DialogOptionsSelectedListener() {
                         @Override
                         public void onSelect(boolean isYes) {
                             onResume();
+                        }
+
+                        @Override
+                        public void onDialogBackClick() {
+                            finish();
                         }
                     }, "Try Again!");
                 }
@@ -105,8 +112,29 @@ public class MainActivity extends AppCompatActivity {
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConstants.BlackBracketBlog));
-                startActivity(browserIntent);
+                /*Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConstants.BlackBracketBlog));
+                startActivity(browserIntent);*/
+
+                if (FunctionHelper.isConnectedToInternet(context)) {
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    builder.setToolbarColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                    builder.enableUrlBarHiding();
+                    builder.setStartAnimations(context, R.anim.slide_in_top, R.anim.slide_out_top);
+                    builder.setExitAnimations(context, R.anim.slide_in_bottom, R.anim.slide_out_bottom);
+                    customTabsIntent.launchUrl(MainActivity.this, Uri.parse(AppConstants.BlackBracketBlog));
+                } else {
+                    FunctionHelper.showAlertDialogWithOneOpt(context, getString(R.string.connect_to_iternet), new FunctionHelper.DialogOptionsSelectedListener() {
+                        @Override
+                        public void onSelect(boolean isYes) {
+                            //nothing yet
+                        }
+
+                        @Override
+                        public void onDialogBackClick() {
+                        }
+                    }, "Ok");
+                }
             }
         });
     }
@@ -174,30 +202,49 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (FunctionHelper.isConnectedToInternet(context)) {
             if (PrefsUtil.isIntroShown(context)) {
-                callService();
+                initApiCalling();
             } else {
 
                 new SwipeIntroDialog(context, new SwipeIntroDialog.OnIntroDismissListener() {
                     @Override
                     public void onDismissed() {
                         PrefsUtil.setIntroStatus(context, true);
-                        callService();
+                        initApiCalling();
                     }
                 });
 
             }
         } else {
-            FunctionHelper.showAlertDialogWithOneOpt(context, "Please connect to internet", new FunctionHelper.DialogOptionsSelectedListener() {
+            FunctionHelper.showAlertDialogWithOneOpt(context, getString(R.string.connect_to_iternet), new FunctionHelper.DialogOptionsSelectedListener() {
                 @Override
                 public void onSelect(boolean isYes) {
                     onResume();
+                }
+
+                @Override
+                public void onDialogBackClick() {
+                    finish();
                 }
             }, "Try Again!");
         }
     }
 
-    private void callService() {
+    private void initApiCalling() {
 
+
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                callService();
+            }
+        };
+
+        handler.postDelayed(runnable, 0);
+
+    }
+
+    private void callService() {
         final List<Countries> countries = new ArrayList<>();
         layoutSwipe.setRefreshing(true);
         services.getAllBitcoinInfo().enqueue(new Callback<CurrencyResponse>() {
@@ -301,9 +348,12 @@ public class MainActivity extends AppCompatActivity {
                         currencyItemAdapter.setItemsAndNotify(countries);
                     }
                     txtAskValue.setText(getString(R.string.one_bitcoin_in, selectedCurrency));
-                    txtAnsValue.setText("Value:\n " + countries.get(selectedPosition).get15m() + " " + countries.get(selectedPosition).getSymbol());
+                   txtAnsValue.setText("Value:\n " + countries.get(selectedPosition).get15m() + " " + countries.get(selectedPosition).getSymbol());
                     txtAnsBuyRate.setText("Buy rate:\n " + countries.get(selectedPosition).getBuy() + " " + countries.get(selectedPosition).getSymbol());
                     txtAnsSaleRate.setText("Sale rate:\n " + countries.get(selectedPosition).getSell() + " " + countries.get(selectedPosition).getSymbol());
+
+                    handler.removeCallbacks(runnable);
+                    handler.postDelayed(runnable, 10000);
                 }
             }
 
@@ -314,6 +364,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSelect(boolean isYes) {
                         finish();
+                    }
+
+                    @Override
+                    public void onDialogBackClick() {
+                        //
                     }
                 }, "Okay");
             }
@@ -360,9 +415,9 @@ public class MainActivity extends AppCompatActivity {
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
 
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("03BE0FD0160FB62F72A0AA8DD56866F2")/*please remove me when you want to upload app*/
+//                .addTestDevice("F9A8C7909D2B12226B0AEA937B0B8EAC")/*please remove me when you want to upload app*/
                 .build();
-        // Load ads into Interstitial Ads
+        // Load ads into Interstitial Adssss
         mInterstitialAd.loadAd(adRequest);
 
         mInterstitialAd.setAdListener(new AdListener() {
@@ -379,3 +434,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+/*
+      //the time is in miliseconds*/

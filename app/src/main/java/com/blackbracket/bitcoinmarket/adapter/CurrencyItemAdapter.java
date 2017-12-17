@@ -81,7 +81,7 @@ public class CurrencyItemAdapter extends RecyclerView.Adapter<CurrencyItemAdapte
 
         public CurrencyHolder(View itemView) {
             super(itemView);
-            txtSymbol = itemView.findViewById(R.id.txtSymbol);
+            txtSymbol = (TextView) itemView.findViewById(R.id.txtSymbol);
             viewSideLine = itemView.findViewById(R.id.viewSideLine);
         }
     }

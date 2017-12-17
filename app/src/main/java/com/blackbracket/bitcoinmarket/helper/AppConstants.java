@@ -8,7 +8,7 @@ public class AppConstants {
     public static final String BASE_URL = "https://blockchain.info/";
     public static final String TICKER = "ticker";
     public static final String TO_BTC = "tobtc";
-    public static final String BlackBracketBlog = "http://www.blackbrackettechnologies.com/";//todo: need to change with your own blog
+    public static final String BlackBracketBlog = "http://www.blackbrackettechnologies.com/what-is-bitcoin-india.html";
 
 
     /*Country-Currency full forms*/
@@ -34,5 +34,29 @@ public class AppConstants {
     public static final String SGD = "Singapore Dollar";
     public static final String THB = "Thailand Baht";
     public static final String TWD = "Taiwan Dollar";
+
+
+    public static final String mUSD = "USD";
+    public static final String mINR = "INR";
+    public static final String mAUD = "AUD";
+    public static final String mBRL = "BRL";
+    public static final String mCAD = "CAD";
+    public static final String mCHF = "CHF";
+    public static final String mCLP = "CLP";
+    public static final String mCNY = "CNY";
+    public static final String mDKK = "DKK";
+    public static final String mEUR = "EUR";
+    public static final String mGBP = "GBP";
+    public static final String mHKD = "HKD";
+    public static final String mISK = "ISK";
+    public static final String mJPY = "JPY";
+    public static final String mKRW = "KRW";
+    public static final String mNZD = "NZD";
+    public static final String mPLN = "PLN";
+    public static final String mRUB = "RUB";
+    public static final String mSEK = "SEK";
+    public static final String mSGD = "SGD";
+    public static final String mTHB = "THB";
+    public static final String mTWD = "TWD";
 
 }

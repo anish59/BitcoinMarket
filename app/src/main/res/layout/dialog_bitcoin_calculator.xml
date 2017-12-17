@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:background="@color/colorLightGrey"
@@ -9,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2.5"
-        android:background="@drawable/supermanbitcoin">
+        android:background="@drawable/calculate_money">
         <!--@drawable/calculate_money-->
 
         <RelativeLayout
@@ -22,7 +23,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/ic_send_btn" />
+                android:src="@drawable/ic_close" />
             <!--@drawable/ic_close-->
         </RelativeLayout>
 
@@ -51,19 +52,30 @@
                 android:layout_height="?actionBarSize"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:background="@drawable/square_bg"
-                android:gravity="center"
+                android:hint="Enter Amount"
                 android:inputType="numberDecimal"
-                android:text="12345678"
+                android:padding="@dimen/dimen_8dp"
                 android:textSize="@dimen/dimen_22sp" />
             <!--todo need to apply input filter and adjustable edit text-->
 
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/spinnerSearchable"
-                android:layout_width="250dp"
-                android:layout_height="?actionBarSize"
-                android:layout_marginTop="@dimen/dimen_16dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:background="@drawable/spinner_bg">
 
-            </com.toptoche.searchablespinnerlibrary.SearchableSpinner>
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/spinnerSearchable"
+                    android:layout_width="250dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/dimen_2dp">
+
+                </com.toptoche.searchablespinnerlibrary.SearchableSpinner>
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btnConvert"
