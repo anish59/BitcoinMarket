@@ -7,8 +7,8 @@ android {
         applicationId "com.blackbracket.bitcoinmarket"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 2
-        versionName "1.0"
+        versionCode 4
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -45,10 +45,12 @@ android {
             }
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -64,10 +66,10 @@ dependencies {
     compile 'com.github.ViksaaSkool:AutoFitEditText:53238e2d29'
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'com.github.Cutta:ContinuousScrollableImageView:1.0'
-    compile "com.hanks:htextview-scale:0.1.1"
-    compile "com.hanks:htextview-line:0.1.1"
-    compile "com.hanks:htextview-fade:0.1.1"
-    compile "com.hanks:htextview-typer:0.1.1"
+    compile 'com.hanks:htextview-scale:0.1.1'
+    compile 'com.hanks:htextview-line:0.1.1'
+    compile 'com.hanks:htextview-fade:0.1.1'
+    compile 'com.hanks:htextview-typer:0.1.1'
     compile 'com.ldoublem.loadingview:loadingviewlib:1.0'
     compile 'com.hanks:htextview-scale:0.1.1'
     compile 'com.hanks:htextview-line:0.1.1'
